@@ -18,7 +18,8 @@ void main() {
     ),
     middleware: [
       LoggingMiddleware.printer(),
-      TypedMiddleware<AppState, GenerateNameAction>(generateNameMiddleare)
+      TypedMiddleware<AppState, GenerateNameAction>(generateNameMiddleare),
+      TypedMiddleware<AppState, ResetNameAction>(resetNameMiddleware),
     ],
   );
 

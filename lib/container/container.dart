@@ -19,7 +19,7 @@ class RandomWordsContainer extends StatelessWidget {
       },
       builder: (context, vm) {
         return RandomWords(vm.names, vm.saved, vm.onFavorite, vm.onUnfavorite,
-            vm.onGenerateNames);
+            vm.onGenerateNames, vm.onResetNames);
       },
     );
   }
@@ -31,13 +31,15 @@ class _RandomWordsContainerViewModel {
   Function(WordPair wp) onFavorite;
   Function(WordPair) onUnfavorite;
   Function onGenerateNames;
+  Function onResetNames;
 
   _RandomWordsContainerViewModel(
       {this.names,
       this.saved,
       this.onFavorite,
       this.onUnfavorite,
-      this.onGenerateNames});
+      this.onGenerateNames,
+      this.onResetNames});
 
   _RandomWordsContainerViewModel.generate(
       Store<AppState> store, this.names, this.saved) {
@@ -51,6 +53,9 @@ class _RandomWordsContainerViewModel {
     };
     onGenerateNames = () {
       store.dispatch(GenerateNameAction());
+    };
+    onResetNames = () {
+      store.dispatch(ResetNameAction());
     };
   }
 }

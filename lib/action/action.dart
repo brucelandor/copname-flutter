@@ -1,5 +1,4 @@
 import 'package:english_words/english_words.dart';
-import 'dart:convert';
 
 class GenerateNameAction {}
 
@@ -17,3 +16,10 @@ class UnfavoriteNameAction {
   WordPair name;
   UnfavoriteNameAction(this.name);
 }
+
+class SetNameAction {
+  final List<WordPair> names;
+  SetNameAction(this.names);
+}
+
+class ResetNameAction {}

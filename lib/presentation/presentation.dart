@@ -7,9 +7,10 @@ class RandomWords extends StatefulWidget {
   final Function(WordPair wp) onFavorite;
   final Function(WordPair wp) onUnfavorite;
   final Function() onGenerateNames;
+  final Function() onResetNames;
 
   RandomWords(this.names, this.saved, this.onFavorite, this.onUnfavorite,
-      this.onGenerateNames);
+      this.onGenerateNames, this.onResetNames);
 
   @override
   _RandomWordsState createState() => _RandomWordsState();
@@ -55,30 +56,36 @@ class _RandomWordsState extends State<RandomWords> {
           )
         ],
       ),
-      body: ListView.separated(
-        controller: _controller,
-        itemCount: widget.names.length,
-        itemBuilder: (context, i) {
-          return ListTile(
-            title: Text(widget.names[i].asPascalCase),
-            trailing: widget.saved.contains(widget.names[i])
-                ? Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  )
-                : Icon(Icons.favorite_border),
-            onTap: widget.saved.contains(widget.names[i])
-                ? () {
-                    widget.onUnfavorite(widget.names[i]);
-                  }
-                : () {
-                    widget.onFavorite(widget.names[i]);
-                  },
-          );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          widget.onResetNames();
+          return;
         },
-        separatorBuilder: (context, i) {
-          return Divider();
-        },
+        child: ListView.separated(
+          controller: _controller,
+          itemCount: widget.names.length,
+          itemBuilder: (context, i) {
+            return ListTile(
+              title: Text(widget.names[i].asPascalCase),
+              trailing: widget.saved.contains(widget.names[i])
+                  ? Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
+                  : Icon(Icons.favorite_border),
+              onTap: widget.saved.contains(widget.names[i])
+                  ? () {
+                      widget.onUnfavorite(widget.names[i]);
+                    }
+                  : () {
+                      widget.onFavorite(widget.names[i]);
+                    },
+            );
+          },
+          separatorBuilder: (context, i) {
+            return Divider();
+          },
+        ),
       ),
     );
   }

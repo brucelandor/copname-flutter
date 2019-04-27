@@ -29,8 +29,13 @@ AppState addNameReducer(AppState state, AddNameAction action) {
       state.saved);
 }
 
+AppState setNameReducer(AppState state, SetNameAction action) {
+  return AppState(action.names, Set());
+}
+
 final Reducer<AppState> appReducer = combineReducers([
   TypedReducer<AppState, FavoriteNameAction>(favoriteNameReducer),
   TypedReducer<AppState, UnfavoriteNameAction>(unfavoriteNameReducer),
   TypedReducer<AppState, AddNameAction>(addNameReducer),
+  TypedReducer<AppState, SetNameAction>(setNameReducer),
 ]);
