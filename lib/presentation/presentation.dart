@@ -38,6 +38,14 @@ class _RandomWordsState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
+    var floatingActionButton2 = FloatingActionButton(
+      child: Icon(Icons.arrow_upward),
+      onPressed: () {
+        _controller.animateTo(1,
+            duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("copnames"),
@@ -87,6 +95,7 @@ class _RandomWordsState extends State<RandomWords> {
           },
         ),
       ),
+      floatingActionButton: floatingActionButton2,
     );
   }
 }
